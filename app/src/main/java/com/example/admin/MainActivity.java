@@ -3,12 +3,14 @@ package com.example.admin;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.admin.myapplication.R;
+import com.example.admin.helloworld.R;
+
 
 import java.io.IOException;
 import okhttp3.Call;
@@ -23,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        Intent intent=getIntent();
+        int pid=intent.getIntExtra("pid",0);
+        Log.i("我们接收到了id",""+pid);
         this.textView=(TextView)findViewById(R.id.abc);
         this.button=(Button)findViewById(R.id.button);
         this.button.setOnClickListener(new View.OnClickListener() {
@@ -32,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         String weatherId="CN101190401";
-        String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId + "&key=2a4ad245ad794c8b9279c9192737bc56";
+        String weatherUrl = "http://guolin.tech/api/china" + pid;
         HttpUtil.sendOkHttpRequest(weatherUrl,new Callback(){
             @Override
             public void onFailure(Call call, IOException e) {
